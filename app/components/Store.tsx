@@ -7,11 +7,7 @@ interface StoreProps {
   encryptMessage: (address: string, secret: string) => Promise<void>;
 }
 
-export default function Store({
-  setStep,
-
-  encryptMessage,
-}: StoreProps) {
+export default function Store({ setStep, encryptMessage }: StoreProps) {
   const {
     register,
     handleSubmit,

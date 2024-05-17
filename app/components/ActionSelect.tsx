@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Store from "./Store";
 import Restore from "./Restore";
 import { ethers } from "ethers";
@@ -11,6 +11,7 @@ import useTaco from "../hooks/useTaco";
 import useEncryptMessage from "../hooks/useEncryptMessage";
 import useDecryptMessage from "../hooks/useDecryptMessage";
 import SuccessfullRestore from "./SuccessfullRestore";
+import ErrorMessage from "./ErrorMessage";
 
 export enum Actions {
   ENCRYPT,
@@ -24,13 +25,21 @@ export enum Steps {
   RESTORE,
   SUCCESSFULLY_STORED,
   SUCCESSFULLY_RESTORED,
+  ERROR,
 }
 export default function ActionSelect() {
   const [action, setAction] = useState<Actions>(Actions.ENCRYPT);
   const [step, setStep] = useState<Steps>(Steps.CONNECT);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [provider, setProvider] = useState<
     ethers.providers.Web3Provider | undefined
   >();
+
+  useEffect(() => {
+    if (errorMessage !== "") {
+      setStep(Steps.ERROR);
+    }
+  }, [errorMessage, step]);
 
   const { isInit, encryptDataToBytes, decryptDataFromBytes } = useTaco({
     domain,
@@ -40,15 +49,17 @@ export default function ActionSelect() {
 
   const { encrypting, encryptedText, encryptMessage } = useEncryptMessage({
     provider,
+    setErrorMessage,
     encryptDataToBytes,
   });
 
   const { decrypting, decryptedMessage, decryptMessage } = useDecryptMessage({
     provider,
+    setErrorMessage,
     decryptDataFromBytes,
   });
 
-  return !isInit ? (
+  return !isInit || decrypting || encrypting ? (
     <p>Loading...</p>
   ) : (
     <>
@@ -71,6 +82,13 @@ export default function ActionSelect() {
         <SuccessfullRestore
           setStep={setStep}
           decryptedMessage={decryptedMessage}
+        />
+      )}
+      {step === Steps.ERROR && errorMessage && (
+        <ErrorMessage
+          setStep={setStep}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
         />
       )}
     </>

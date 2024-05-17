@@ -27,15 +27,19 @@ export default function useTaco({
 
   const decryptDataFromBytes = useCallback(
     async (encryptedBytes: Uint8Array, signer?: ethers.Signer) => {
-      if (!isInit || !provider) return;
-      const messageKit = ThresholdMessageKit.fromBytes(encryptedBytes);
-      return decrypt(
-        provider,
-        domain,
-        messageKit,
-        getPorterUri(domain),
-        signer
-      );
+      try {
+        if (!isInit || !provider) return;
+        const messageKit = ThresholdMessageKit.fromBytes(encryptedBytes);
+        return decrypt(
+          provider,
+          domain,
+          messageKit,
+          getPorterUri(domain),
+          signer
+        );
+      } catch (error) {
+        throw new Error("TACo Failed Decrypt:" + error);
+      }
     },
     [isInit, provider, domain]
   );
@@ -46,17 +50,22 @@ export default function useTaco({
       condition: conditions.condition.Condition,
       encryptorSigner: ethers.Signer
     ) => {
-      if (!isInit || !provider) return;
-      const messageKit = await encrypt(
-        provider,
-        domain,
-        message,
-        condition,
-        ritualId,
-        encryptorSigner
-      );
-      return messageKit.toBytes();
+      try {
+        if (!isInit || !provider) return;
+        const messageKit = await encrypt(
+          provider,
+          domain,
+          message,
+          condition,
+          ritualId,
+          encryptorSigner
+        );
+        return messageKit.toBytes();
+      } catch (error) {
+        throw new Error("TACo Failed Encrypt:" + error);
+      }
     },
+
     [isInit, provider, domain, ritualId]
   );
 

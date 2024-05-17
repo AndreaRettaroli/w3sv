@@ -1,20 +1,22 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { Steps } from "./ActionSelect";
-import toast, { Toaster } from "react-hot-toast";
 
-interface SuccessfullRestoreProps {
+interface ErrorMessageProps {
   setStep: Dispatch<SetStateAction<Steps>>;
-  decryptedMessage: string;
+  errorMessage: string;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
 }
 
-export default function SuccessfullRestore({
+export default function ErrorMessage({
   setStep,
-  decryptedMessage,
-}: SuccessfullRestoreProps) {
+  errorMessage,
+  setErrorMessage,
+}: ErrorMessageProps) {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
         setStep(Steps.INTRO);
+        setErrorMessage("");
       }
     };
 
@@ -26,30 +28,28 @@ export default function SuccessfullRestore({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(decryptedMessage);
-    toast.success("Copied!");
-  };
-
   return (
     <>
-      <Toaster />
       <br />
       <br />
-      $ The restored secret is:
+      $ Oops, something went wrong:
       <br />
       <br />
       <textarea
         rows={4}
-        className="w-full bg-black border-none appearance-none border-transparent focus:border-transparent focus:ring-0 focus:outline-none"
-        onFocus={copyToClipboard}
+        className="text-red-700 w-full bg-black border-none appearance-none border-transparent focus:border-transparent focus:ring-0 focus:outline-none"
       >
-        {decryptedMessage}
+        {errorMessage}
       </textarea>
       <br />
       <br />
-      <button type="button" onClick={() => setStep(Steps.INTRO)}>
-        $ Click here or Press Enter to continue
+      <button
+        type="button"
+        onClick={() => {
+          setStep(Steps.INTRO), setErrorMessage("");
+        }}
+      >
+        $ Click here or Press Enter to retry
       </button>
     </>
   );

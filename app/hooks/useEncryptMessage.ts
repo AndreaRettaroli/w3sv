@@ -1,9 +1,10 @@
 import { conditions, toHexString } from "@nucypher/taco";
 import { ethers } from "ethers";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface useEncryptMessageProps {
   provider: any;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
   encryptDataToBytes: (
     message: string,
     condition: conditions.condition.Condition,
@@ -13,6 +14,7 @@ interface useEncryptMessageProps {
 
 const useEncryptMessage = ({
   provider,
+  setErrorMessage,
   encryptDataToBytes,
 }: useEncryptMessageProps) => {
   const [encrypting, setEncrypting] = useState(false);
@@ -68,16 +70,17 @@ const useEncryptMessage = ({
         hasEqualAddress,
         signer
       );
-      console.log("result:", encryptedBytes && toHexString(encryptedBytes));
+
       if (encryptedBytes) {
         const encryptedString = toHexString(encryptedBytes);
-        console.log("🚀 ~ encryptMessage ~ encryptedString:", encryptedString);
         setEncryptedText(encryptedString);
       } else {
+        setErrorMessage("Failed to encrypt the message");
         console.error("Encryption failed");
       }
     } catch (error) {
       console.error(error);
+      setErrorMessage("Encryption failed with exception:" + error);
     } finally {
       setEncrypting(false);
     }

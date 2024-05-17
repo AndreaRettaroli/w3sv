@@ -1,10 +1,11 @@
 import { fromBytes } from "@nucypher/taco";
 import { fromHexString } from "@nucypher/shared";
 import { ethers } from "ethers";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface useEncryptMessageProps {
   provider: any;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
   decryptDataFromBytes: (
     encryptedBytes: Uint8Array,
     signer?: ethers.Signer
@@ -13,6 +14,7 @@ interface useEncryptMessageProps {
 
 const useDecryptMessage = ({
   provider,
+  setErrorMessage,
   decryptDataFromBytes,
 }: useEncryptMessageProps) => {
   const [decrypting, setDecrypting] = useState(false);
@@ -33,9 +35,13 @@ const useDecryptMessage = ({
 
       if (decryptedMessage) {
         setDecryptedMessage(fromBytes(decryptedMessage));
+      } else {
+        setErrorMessage("Failed to decrypt the message");
+        console.error("Decryption failed");
       }
     } catch (error) {
       console.error(error);
+      setErrorMessage("Decryption failed with exception:" + error);
     } finally {
       setDecrypting(false);
     }
