@@ -9,22 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nucypher/shared": "^0.2.2",
     "@nucypher/taco": "^0.2.6",
+    "cursor-effects": "^1.0.15",
     "ethers": "^5.7.2",
     "next": "14.2.3",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",
     "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/node": "20.11.30",
+    "@types/react": "18.2.48",
+    "@types/react-dom": "18.2.18",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "5.2.2"
   }
 }
