@@ -2,15 +2,15 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import { Steps } from "./ActionSelect";
 import toast, { Toaster } from "react-hot-toast";
 
-interface SuccessfullStoreProps {
+interface SuccessfullRestoreProps {
   setStep: Dispatch<SetStateAction<Steps>>;
-  encryptedText: string;
+  decryptedMessage: string;
 }
 
-export default function SuccessfullStore({
+export default function SuccessfullRestore({
   setStep,
-  encryptedText,
-}: SuccessfullStoreProps) {
+  decryptedMessage,
+}: SuccessfullRestoreProps) {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
@@ -25,8 +25,10 @@ export default function SuccessfullStore({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log("🚀 ~ decryptedMessage:", decryptedMessage);
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(encryptedText);
+    navigator.clipboard.writeText(decryptedMessage);
     toast.success("Copied!");
   };
 
@@ -35,7 +37,7 @@ export default function SuccessfullStore({
       <Toaster />
       <br />
       <br />
-      $ Your secret key is:
+      $ The restored secret is:
       <br />
       <br />
       <textarea
@@ -43,7 +45,7 @@ export default function SuccessfullStore({
         className="w-full bg-black border-none appearance-none border-transparent focus:border-transparent focus:ring-0 focus:outline-none"
         onFocus={copyToClipboard}
       >
-        {encryptedText}
+        {decryptedMessage}
       </textarea>
       <br />
       <br />

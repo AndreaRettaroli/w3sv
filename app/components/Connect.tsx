@@ -1,9 +1,10 @@
+"use client";
+
 import { ethers } from "ethers";
 import { hexlify } from "ethers/lib/utils";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { Steps } from "./ActionSelect";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const window: any;
 
 interface ConnectProps {
@@ -47,6 +48,7 @@ export default function Connect({ setProvider, setStep }: ConnectProps) {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

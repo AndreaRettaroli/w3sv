@@ -1,20 +1,15 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { Steps } from "./ActionSelect";
 import { useForm } from "react-hook-form";
-import useTaco from "../hooks/useTaco";
-import useEncryptMessage from "../hooks/useEncryptMessage";
-import { ethers } from "ethers";
-import { domain, ritualId } from "../constants";
 
 interface StoreProps {
   setStep: Dispatch<SetStateAction<Steps>>;
-  provider: ethers.providers.Web3Provider | undefined;
   encryptMessage: (address: string, secret: string) => Promise<void>;
 }
 
 export default function Store({
   setStep,
-  provider,
+
   encryptMessage,
 }: StoreProps) {
   const {
@@ -45,6 +40,7 @@ export default function Store({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const watchAddress = watch("address");
@@ -57,7 +53,7 @@ export default function Store({
   return (
     <div>
       <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
-        <label>Type in the address to which you wish to bequeath:</label>
+        <label>$ Type in the address to which you wish to bequeath:</label>
         <br />
         <br />
         <input
@@ -80,7 +76,7 @@ export default function Store({
           <>
             <br />
             <br />
-            <label>Type the seed or secret you wish to bequeath:</label>
+            <label>$ Type the seed or secret you wish to bequeath:</label>
             <br />
             <br />
             <textarea
@@ -97,10 +93,10 @@ export default function Store({
         )}
         <br />
         <br />
-        <button type="submit">Click here or Press Enter to continue</button>
+        <button type="submit">$ Click here or Press Enter to continue</button>
         <br />
         <button type="button" onClick={() => setStep(Steps.INTRO)}>
-          Click here or Press Esc to go back
+          $ Click here or Press Esc to go back
         </button>
       </form>
     </div>

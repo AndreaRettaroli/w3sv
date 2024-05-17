@@ -83,10 +83,6 @@ const useEncryptMessage = ({
     }
   };
 
-  useEffect(() => {
-    console.log("Encrypted text updated:", encryptedText, encrypting);
-  }, [encrypting, encryptedText]);
-
   return { encrypting, encryptedText, encryptMessage };
 };
 

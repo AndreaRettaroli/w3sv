@@ -28,7 +28,8 @@ export default function Intro({ action, setAction, setStep }: IntroProps) {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [action]);
 
   return (
     <>
