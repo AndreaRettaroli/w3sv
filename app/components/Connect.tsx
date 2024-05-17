@@ -58,7 +58,7 @@ export default function Connect({ setProvider, setStep }: ConnectProps) {
       $ Connect your wallet
       <br />
       <br />
-      <button type="button" onClick={loadWeb3Provider}>
+      <button type="button" className="text-left" onClick={loadWeb3Provider}>
         $ Click here or Press Enter to continue
       </button>
     </>

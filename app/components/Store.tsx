@@ -89,9 +89,15 @@ export default function Store({ setStep, encryptMessage }: StoreProps) {
         )}
         <br />
         <br />
-        <button type="submit">$ Click here or Press Enter to continue</button>
+        <button className="text-left" type="submit">
+          $ Click here or Press Enter to continue
+        </button>
         <br />
-        <button type="button" onClick={() => setStep(Steps.INTRO)}>
+        <button
+          className="text-left"
+          type="button"
+          onClick={() => setStep(Steps.INTRO)}
+        >
           $ Click here or Press Esc to go back
         </button>
       </form>

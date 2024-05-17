@@ -47,7 +47,11 @@ export default function SuccessfullStore({
       </textarea>
       <br />
       <br />
-      <button type="button" onClick={() => setStep(Steps.INTRO)}>
+      <button
+        className="text-left"
+        type="button"
+        onClick={() => setStep(Steps.INTRO)}
+      >
         $ Click here or Press Enter to continue
       </button>
     </>

@@ -44,6 +44,7 @@ export default function ErrorMessage({
       <br />
       <br />
       <button
+        className="text-left"
         type="button"
         onClick={() => {
           setStep(Steps.INTRO), setErrorMessage("");

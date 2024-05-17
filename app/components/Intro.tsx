@@ -38,13 +38,13 @@ export default function Intro({ action, setAction, setStep }: IntroProps) {
       $ Select one option:
       <br />
       <br />
-      <button onClick={() => setAction(Actions.ENCRYPT)}>
+      <button className="text-left" onClick={() => setAction(Actions.ENCRYPT)}>
         <span className={action === Actions.ENCRYPT ? "underline" : ""}>
           {action === Actions.ENCRYPT && ">"}Store
         </span>
       </button>
       {"  "}
-      <button onClick={() => setAction(Actions.DECRYPT)}>
+      <button className="text-left" onClick={() => setAction(Actions.DECRYPT)}>
         <span className={action === Actions.DECRYPT ? "underline" : ""}>
           {action === Actions.DECRYPT && ">"}Restore
         </span>
@@ -52,6 +52,7 @@ export default function Intro({ action, setAction, setStep }: IntroProps) {
       <br />
       <br />
       <button
+        className="text-left"
         type="button"
         onClick={() =>
           setStep(action === Actions.ENCRYPT ? Steps.STORE : Steps.RESTORE)
@@ -60,7 +61,11 @@ export default function Intro({ action, setAction, setStep }: IntroProps) {
         $ Click here or Press Enter to continue
       </button>
       <br />
-      <button type="button" onClick={() => setStep(Steps.CONNECT)}>
+      <button
+        className="text-left"
+        type="button"
+        onClick={() => setStep(Steps.CONNECT)}
+      >
         $ Click here or Press Esc to go back
       </button>
     </>
