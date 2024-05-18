@@ -21,11 +21,8 @@ export default function Footer() {
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a
-                    href="https://docs.threshold.network/applications/threshold-access-control"
-                    className="hover:underline"
-                  >
-                    TACo Docs
+                  <a href="#" className="hover:underline">
+                    Install W3VS Snap
                   </a>
                 </li>
                 <li className="mb-4">
