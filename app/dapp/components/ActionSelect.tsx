@@ -1,15 +1,15 @@
 "use client";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Store from "./Store";
 import Restore from "./Restore";
 import { ethers } from "ethers";
 import Connect from "./Connect";
 import Intro from "./Intro";
 import SuccessfullStore from "./SuccessfullStore";
-import { domain, ritualId } from "../constants/constants";
-import useTaco from "../hooks/useTaco";
-import useEncryptMessage from "../hooks/useEncryptMessage";
-import useDecryptMessage from "../hooks/useDecryptMessage";
+import { domain, ritualId } from "../../constants/constants";
+import useTaco from "../../hooks/useTaco";
+import useEncryptMessage from "../../hooks/useEncryptMessage";
+import useDecryptMessage from "../../hooks/useDecryptMessage";
 import SuccessfullRestore from "./SuccessfullRestore";
 import ErrorMessage from "./ErrorMessage";
 
