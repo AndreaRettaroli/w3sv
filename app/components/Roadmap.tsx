@@ -1,14 +1,12 @@
-export default function Roadmap() {
-  const roadmapData = [
-    { quarter: "Q1 2024", milestones: ["Initial Launch", "Milestone 2"] },
-    { quarter: "Q2 2024", milestones: ["Feature Expansion", "Milestone 2"] },
-    { quarter: "Q3 2024", milestones: ["Community Building", "Milestone 2"] },
-    {
-      quarter: "Q4 2024",
-      milestones: ["Full Decentralization", "Milestone 2"],
-    },
-  ];
+// • June 2024: dapp and metamask snap available in beta version on TACo testnet with the seed storage feature. The snap will be available for Flask.
 
+// • July 2024: dapp mainnet release with the subscription mechanism active.
+
+// • Aug 2024: metamask snap mainnet release.
+
+// • Sep 2024: dapp new feature investigation and use cases exploration.
+
+export default function Roadmap() {
   return (
     <section id="roadmap" className="p-8 md:p-16">
       <code className="text-lg sm:text-2xl text-green-500 font-mono">
@@ -16,38 +14,55 @@ export default function Roadmap() {
         <br />
         {"│"}
         <br />
-        {"├── Q1-2024/"}
-        <br />
-        <p>
-          {"│"} <span className="ml-8 sm:ml-20">{"├── Initial-Launch"}</span>
-        </p>
-        <p>
-          {"│"} <span className="ml-8 sm:ml-20">{"└── Milestone-2"}</span>
-        </p>
         {"├── Q2-2024/"}
         <br />
         <p>
-          {"│"} <span className="ml-4 sm:ml-20">{"├── Feature-Expansion"}</span>
+          {"│"}
+          <span className="ml-8 sm:ml-20">{"├── Initial-Launch"}</span>
         </p>
         <p>
-          {"│"} <span className="ml-4 sm:ml-20">{"└── Milestone-2"}</span>
+          {"│"}
+          <span className="ml-8 sm:ml-20">{"├── dApp-beta testnet"}</span>
+        </p>
+        <p>
+          {"│"}
+          <span className="ml-8 sm:ml-20">{"└── snap-beta testnet"}</span>
         </p>
         {"├── Q3-2024/"}
         <br />
         <p>
-          {"│"}{" "}
+          {"│"}
           <span className="ml-4 sm:ml-20">{"├── Community-Building"}</span>
         </p>
         <p>
-          {"│"} <span className="ml-4 sm:ml-20">{"└── Milestone-2"}</span>
+          {"│"}
+          <span className="ml-4 sm:ml-20">{"├── Founding"}</span>
         </p>
-        {"└── Q4-2024/"}
+        <p>
+          {"│"}
+          <span className="ml-4 sm:ml-20">{"└── dApp mainnet release"}</span>
+        </p>
+        {"├── Q4-2024/"}
         <br />
         <p>
-          <span className="ml-8 sm:ml-24">{"├── Full-Decentralization"}</span>
+          {"│"}
+          <span className="ml-4 sm:ml-20">{"├── Activate payment plans"}</span>
         </p>
         <p>
-          <span className="ml-8 sm:ml-24">{"└── Milestone-2"}</span>
+          {"│"}
+          <span className="ml-4 sm:ml-20">{"└── Snap mainnet release"}</span>
+        </p>
+        {"└── Q1-2025/"}
+        <br />
+        <p>
+          <span className="ml-8 sm:ml-24">
+            {"├── new feature investigation"}
+          </span>
+        </p>
+        <p>
+          <span className="ml-8 sm:ml-24">
+            {"└── new use cases exploration"}
+          </span>
         </p>
         <br />
       </code>
