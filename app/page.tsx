@@ -2,22 +2,23 @@ import Link from "next/link";
 import Characteristics from "./components/Characteristics";
 import Roadmap from "./components/Roadmap";
 import Services from "./components/Services";
-import SplineBackground from "./components/SlineBackground";
+import SplineRender from "./components/SplineRender";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8 md:p-24 mcursor-none">
-      <div className="bg-black text-green-500 font-mono flex flex-col justify-end p-4 text-lg md:text-2xl break-normal ">
+    <main className="flex min-h-screen flex-col items-center justify-center p-8 md:p-16 mcursor-none">
+      <div className="relative w-full h-screen bg-black text-green-500 font-mono flex flex-col justify-end p-4 text-lg md:text-2xl break-normal">
         <code>
-          <p className="text-4xl">
+          <p className="mt-8 max-sm:w-full md:absolute md:top-1/5 md:left-1/5 md:transform md:-translate-x-1/5 md:-translate-y-1/5 z-10 text-start p-4 text-4xl">
             $ Welcome Web3 Seed Vault
-            <br />
           </p>
         </code>
-        <SplineBackground />
+        <div className="w-full h-screen animate-fade z-0">
+          <SplineRender scene="https://prod.spline.design/fSBGTYyUE31mhh83/scene.splinecode" />
+        </div>
         <Link
-          href={"/dapp"}
-          className="text-end relative md:right-32 md:bottom-16 hover:underline"
+          href="/dapp"
+          className="absolute max-md:bottom-1/3 bottom-1/4 right-0 md:right-1/5 z-10 text-end p-4 text-lg md:text-4xl hover:underline"
         >
           # Go to dApp -&gt;
         </Link>
