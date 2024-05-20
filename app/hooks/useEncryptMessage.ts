@@ -1,6 +1,7 @@
 import { conditions, toHexString } from "@nucypher/taco";
 import { ethers } from "ethers";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEthersSigner } from "../ethersAdapter";
 
 interface useEncryptMessageProps {
   provider: any;
@@ -17,17 +18,16 @@ const useEncryptMessage = ({
   setErrorMessage,
   encryptDataToBytes,
 }: useEncryptMessageProps) => {
+  const signer = useEthersSigner()
   const [encrypting, setEncrypting] = useState(false);
   const [encryptedText, setEncryptedText] = useState<string>("");
 
   const encryptMessage = async (address: string, secret: string) => {
-    if (!provider) {
+    if (!provider || !signer) {
       return;
     }
     setEncrypting(true);
     try {
-      const signer = provider.getSigner();
-
       console.log("generating condition...");
       const hasEqualAddress = new conditions.base.contract.ContractCondition({
         method: "areAddressesEqual",

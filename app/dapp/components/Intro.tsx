@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { Actions, Steps } from "./ActionSelect";
+import { useDisconnect } from 'wagmi';
 
 interface IntroProps {
   action: Actions;
@@ -8,6 +9,7 @@ interface IntroProps {
 }
 
 export default function Intro({ action, setAction, setStep }: IntroProps) {
+  const { disconnect } = useDisconnect()
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowLeft") {
@@ -64,7 +66,7 @@ export default function Intro({ action, setAction, setStep }: IntroProps) {
       <button
         className="text-left"
         type="button"
-        onClick={() => setStep(Steps.CONNECT)}
+        onClick={() => disconnect()}
       >
         $ Click here or Press Esc to go back
       </button>

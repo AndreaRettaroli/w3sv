@@ -1,17 +1,19 @@
 "use client";
+import { useEthersProvider } from "@/app/ethersAdapter";
 import { useEffect, useState } from "react";
-import Store from "./Store";
-import Restore from "./Restore";
-import { ethers } from "ethers";
-import Connect from "./Connect";
-import Intro from "./Intro";
-import SuccessfullStore from "./SuccessfullStore";
 import { domain, ritualId } from "../../constants/constants";
-import useTaco from "../../hooks/useTaco";
-import useEncryptMessage from "../../hooks/useEncryptMessage";
 import useDecryptMessage from "../../hooks/useDecryptMessage";
-import SuccessfullRestore from "./SuccessfullRestore";
+import useEncryptMessage from "../../hooks/useEncryptMessage";
+import useTaco from "../../hooks/useTaco";
 import ErrorMessage from "./ErrorMessage";
+import Intro from "./Intro";
+import Restore from "./Restore";
+import Store from "./Store";
+import SuccessfullRestore from "./SuccessfullRestore";
+import SuccessfullStore from "./SuccessfullStore";
+import { useAccount, useChains } from "wagmi";
+import Connect from "./Connect";
+import SwitchChain from "./SwitchChain";
 
 export enum Actions {
   ENCRYPT,
@@ -19,7 +21,6 @@ export enum Actions {
 }
 
 export enum Steps {
-  CONNECT,
   INTRO,
   STORE,
   RESTORE,
@@ -29,11 +30,11 @@ export enum Steps {
 }
 export default function ActionSelect() {
   const [action, setAction] = useState<Actions>(Actions.ENCRYPT);
-  const [step, setStep] = useState<Steps>(Steps.CONNECT);
+  const [step, setStep] = useState<Steps>(Steps.INTRO);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [provider, setProvider] = useState<
-    ethers.providers.Web3Provider | undefined
-  >();
+  const provider = useEthersProvider();
+  const account = useAccount();
+  const chains = useChains();
 
   useEffect(() => {
     if (errorMessage !== "") {
@@ -63,33 +64,50 @@ export default function ActionSelect() {
     <p>Loading...</p>
   ) : (
     <>
-      {step === Steps.CONNECT && (
-        <Connect setProvider={setProvider} setStep={setStep} />
-      )}
-      {step === Steps.INTRO && provider && (
-        <Intro action={action} setAction={setAction} setStep={setStep} />
-      )}
-      {step === Steps.STORE && provider && (
-        <Store setStep={setStep} encryptMessage={encryptMessage} />
-      )}
-      {step === Steps.RESTORE && provider && (
-        <Restore setStep={setStep} decryptMessage={decryptMessage} />
-      )}
-      {step === Steps.SUCCESSFULLY_STORED && provider && (
-        <SuccessfullStore setStep={setStep} encryptedText={encryptedText} />
-      )}
-      {step === Steps.SUCCESSFULLY_RESTORED && provider && (
-        <SuccessfullRestore
-          setStep={setStep}
-          decryptedMessage={decryptedMessage}
-        />
-      )}
-      {step === Steps.ERROR && errorMessage && (
-        <ErrorMessage
-          setStep={setStep}
-          errorMessage={errorMessage}
-          setErrorMessage={setErrorMessage}
-        />
+      {!account.isConnected ? (
+        <Connect />
+      ) : (
+        <>
+          <p>$ {account.address?.slice(0, 4)}...{account.address?.slice(-4)}</p>
+          {account.chainId !== chains.at(0)?.id ? (
+            <SwitchChain />
+          ) : (
+            <>
+              {step === Steps.INTRO && provider && (
+                <Intro
+                  action={action}
+                  setAction={setAction}
+                  setStep={setStep}
+                />
+              )}
+              {step === Steps.STORE && provider && (
+                <Store setStep={setStep} encryptMessage={encryptMessage} />
+              )}
+              {step === Steps.RESTORE && provider && (
+                <Restore setStep={setStep} decryptMessage={decryptMessage} />
+              )}
+              {step === Steps.SUCCESSFULLY_STORED && provider && (
+                <SuccessfullStore
+                  setStep={setStep}
+                  encryptedText={encryptedText}
+                />
+              )}
+              {step === Steps.SUCCESSFULLY_RESTORED && provider && (
+                <SuccessfullRestore
+                  setStep={setStep}
+                  decryptedMessage={decryptedMessage}
+                />
+              )}
+              {step === Steps.ERROR && errorMessage && (
+                <ErrorMessage
+                  setStep={setStep}
+                  errorMessage={errorMessage}
+                  setErrorMessage={setErrorMessage}
+                />
+              )}
+            </>
+          )}
+        </>
       )}
     </>
   );
