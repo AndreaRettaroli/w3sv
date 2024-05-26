@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Encrypt your seed or a secret and share it, or decrypt a secret",
   icons: {
-    icon: "/symbol.png", // /public path
+    icon: "/logoverde.png", // /public path
   },
 };
 
